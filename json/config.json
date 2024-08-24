@@ -1,3 +1,5 @@
 {
-    "token": "you_bot_token"
+    "token": "your_bot_token",
+    "img": "https://cdn.discordapp.com/attachments/1183742759539060776/1276864417333776436/BANNER_00000.jpg?ex=66cb1428&is=66c9c2a8&hm=699682cb1f58208213ace081feece438255427fbc534c197647c59e542d2d092&",
+    "prefix": "!"
 }
