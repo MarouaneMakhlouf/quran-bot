@@ -6,6 +6,11 @@ const prism = require('prism-media');
 const config = require('./json/config.json');
 const surahInfo = require('./json/surahinfo.json');
 
+// 1: Mishary Rashid Al-Afasy
+// 2: Abu Bakr Al-Shatri
+// هنا حط رقم القارئ الذي تريد يوجد 2 فقط
+let qaria = 1; 
+
 const client = new Client({
   intents: [
     GatewayIntentBits.Guilds,
@@ -70,8 +75,10 @@ const playNext = async (userId) => {
     return;
   }
 
+  if(qaria != 1 || qaria != 2) qaria = 1;
+
   try {
-    const audioUrl = `https://quranaudio.pages.dev/1/${userState.surahNo}_${userState.currentAyah}.mp3`;
+    const audioUrl = `https://quranaudio.pages.dev/${qaria}/${userState.surahNo}_${userState.currentAyah}.mp3`;
 
     const response = await axios({
       method: 'get',
@@ -96,8 +103,8 @@ const playNext = async (userId) => {
       .setColor('#0099ff')
       .setTitle('تشغيل القرآن الكريم')
       .setDescription(`الآن تشغيل الآية ${userState.currentAyah} من سورة ${surah.name}`)
-      .setThumbnail('https://cdn.discordapp.com/attachments/1183742759539060776/1276573102154846248/BANNER_00000.jpg?ex=66ca04d9&is=66c8b359&hm=7b6497f4897805c73f0e83eaad44a6ffcf30884b7fab3c65ec075fd5fdfc319b&')
-      .setFooter({ text: 'مبرمج البوت: مروان', iconURL: 'https://cdn.discordapp.com/attachments/1183742759539060776/1276573102154846248/BANNER_00000.jpg?ex=66ca04d9&is=66c8b359&hm=7b6497f4897805c73f0e83eaad44a6ffcf30884b7fab3c65ec075fd5fdfc319b&' });
+      .setImage(config.img)
+      .setFooter({ text: 'مبرمج البوت: مروان', iconURL: config.img});
 
     if (!userState.statusMessage) {
       userState.statusMessage = await userState.interaction.reply({
@@ -141,7 +148,7 @@ const playNext = async (userId) => {
 
 
 client.on('messageCreate', async (message) => {
-  if (message.content === '!quran') {
+  if (message.content === `${config.prefix}quran`) {
     const maxOptions = 25;
     let options = surahInfo.map(surah => ({
       label: surah.name,
@@ -254,7 +261,7 @@ client.on('interactionCreate', async (interaction) => {
         player.stop();
         connection.destroy();
         if (userState.statusMessage) {
-          await userState.statusMessage.delete(); // حذف لوحة التحكم بعد الإيقاف
+          await userState.statusMessage.delete();
         }
         userStates.delete(interaction.user.id);
         await interaction.reply({
@@ -297,11 +304,11 @@ client.on('interactionCreate', async (interaction) => {
 
   if (interaction.isCommand() && interaction.commandName === 'support') {
     await interaction.reply({embeds: [{
-      title: 'رابط سيرفرات الدعم: ',
-      description: 'Wick studio: https://discord.gg/wicks \n Nextroy team: https://discord.gg/xHTnGkzs9w',
+      title: 'رابط سيرفرات الدعم:',
+      description: ' --------------------------------------- \n Wick studio: https://discord.gg/wicks \n --------------------------------------- \n CreaDev Studio: https://discord.gg/FrtBzqAKYU\n --------------------------------------- ',
       color: 0x00ff99
     }],
-      ephemeral: false // or true based on your preference
+      ephemeral: false
     });
   }
 });
