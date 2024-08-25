@@ -305,7 +305,7 @@ client.on('interactionCreate', async (interaction) => {
   if (interaction.isCommand() && interaction.commandName === 'support') {
     await interaction.reply({embeds: [{
       title: 'رابط سيرفرات الدعم:',
-      description: ' --------------------------------------- \n Wick studio: https://discord.gg/wicks \n --------------------------------------- \n CreaDev Studio: https://discord.gg/FrtBzqAKYU\n --------------------------------------- ',
+      description: ' ---------------------------------------  \n CreaDev Studio: https://discord.gg/8pXCpv738U\n --------------------------------------- ',
       color: 0x00ff99
     }],
       ephemeral: false
